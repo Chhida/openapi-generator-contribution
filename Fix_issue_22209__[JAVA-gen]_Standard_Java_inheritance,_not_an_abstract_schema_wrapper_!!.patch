@@ -1,0 +1,20 @@
+Subject: [PATCH] Fix issue 22209: [JAVA-gen] Standard Java inheritance, not an abstract schema wrapper !!
+---
+Index: modules/openapi-generator/src/main/java/org/openapitools/codegen/languages/JavaClientCodegen.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/modules/openapi-generator/src/main/java/org/openapitools/codegen/languages/JavaClientCodegen.java b/modules/openapi-generator/src/main/java/org/openapitools/codegen/languages/JavaClientCodegen.java
+--- a/modules/openapi-generator/src/main/java/org/openapitools/codegen/languages/JavaClientCodegen.java	(revision c0b72ee970922b47eac484ff851f3b9992cd5ef1)
++++ b/modules/openapi-generator/src/main/java/org/openapitools/codegen/languages/JavaClientCodegen.java	(revision 9165cc67de2b21d59925e2d2468468bee3d42822)
+@@ -1092,6 +1092,9 @@
+             codegenModel.imports.remove("Schema");
+         }
+ 
++        if(codegenModel.oneOf!= null && !codegenModel.oneOf.isEmpty() && codegenModel.discriminator!=null) {
++            codegenModel.oneOf = null;
++        }
+         return codegenModel;
+     }
+ 
