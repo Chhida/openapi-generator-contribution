@@ -1352,6 +1352,15 @@ public class ApiClient extends JavaTimeFormatter {
     }
   }
   
+  /**
+   * Deserialize the response body into an error entity based on HTTP status code.
+   * Looks up the error type from the errorTypes map using the response status code,
+   * or falls back to the "default" error type if no match is found.
+   *
+   * @param errorTypes Map of status code strings to GenericType for deserialization
+   * @param response The HTTP response
+   * @return The deserialized error entity, or null if not found or deserialization fails
+   */
   private Object deserializeErrorEntity(Map<String, GenericType> errorTypes, Response response) {
     if (errorTypes == null) {
       return null;
